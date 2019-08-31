@@ -1,5 +1,24 @@
 .motif-container {
+  display: flex;
+  height: 300px;
+  border-style: solid;
+  border-width: 2px;
+  margin: 5%;
+}
+.motif-grid {
   display: grid;
+  border: 1px solid black;
+  grid-gap: 3px;
+  height: calc(100% - 38px);
+  width: calc(100% - 30px);
   grid-template-columns: repeat(16, 1fr);
   grid-template-rows: repeat(7, 1fr);
+  margin: 15px;
+  padding: 3px;
+}
+.motif-grid-note {
+  border: 1px solid #fff;
+  border-color: black;
+  border-radius: 3px;
+  text-align: center;
 }
