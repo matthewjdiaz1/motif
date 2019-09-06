@@ -1,5 +1,5 @@
 import React from 'react';
-import Motif from './motif.jsx'
+import Motif from './Motif.jsx'
 
 class App extends React.Component {
   constructor(props) {

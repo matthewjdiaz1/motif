@@ -1,16 +1,38 @@
 import React from 'react';
+import MotifGrid from './MotifGrid.jsx';
 import Tone from 'tone';
 
 class Motif extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      volume: 100,
+      tempo: 90,
+      cMajScale: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
+      currentScale: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
+      synth: null,
+    }
     this.handleClick = this.handleClick.bind(this);
+    this.playMaj7th = this.playMaj7th.bind(this);
   }
+
+  componentDidMount() {
+    // const metalSynth = new Tone.MetalSynth().toMaster();
+    // this.setState({ synth: metalSynth })
+  }
+
   handleClick(note) {
-    var synth = new Tone.Synth().toMaster();
-    //play a middle 'C' for the duration of an 8th note
-    synth.triggerAttackRelease(note + '3', '1n')
+    // const synth = new Tone.Synth().toMaster();
+    // this.state.synth.triggerAttackRelease(note + '3', '1n');
+  }
+  playMaj7th(note) {
+    // const polySynth = new Tone.PolySynth(3, Tone.synth).toMaster();
+
+    // this.state.cMajScale.forEach((note, index) => {
+    //   if (index % 2 === 0) {
+    //     polySynth.triggerAttackRelease(note + '3', '1n')
+    //   }
+    // });
   }
 
   render() {
@@ -28,197 +50,7 @@ class Motif extends React.Component {
           </div>
         </div>
         <div className='motif-grid'>
-          <button onClick={() => this.handleClick('B')} className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          <button className='motif-grid-note'>B</button>
-          {/* <button className='motif-grid-note'>Bb</button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button> */}
-          <button onClick={() => this.handleClick('A')} className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          <button className='motif-grid-note'>A</button>
-          {/* <button className='motif-grid-note'>Ab</button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button> */}
-          <button onClick={() => this.handleClick('G')} className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          <button className='motif-grid-note'>G</button>
-          {/* <button className='motif-grid-note'>Gb</button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button> */}
-          <button onClick={() => this.handleClick('F')} className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button className='motif-grid-note'>F</button>
-          <button onClick={() => this.handleClick('E')} className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          <button className='motif-grid-note'>E</button>
-          {/* <button className='motif-grid-note'>Eb</button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></div>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button> */}
-          <button onClick={() => this.handleClick('D')} className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          <button className='motif-grid-note'>D</button>
-          {/* <button className='motif-grid-note'>Db</button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button>
-          <button className='motif-grid-note'></button> */}
-          <button onClick={() => this.handleClick('C')} className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
-          <button className='motif-grid-note'>C</button>
+          <MotifGrid scale={this.state.currentScale} />
         </div>
       </div>
     )
