@@ -25,6 +25,8 @@ class MotifGrid extends React.Component {
         note={note}
         index={index}
         scale={this.props.scale}
+        transport={this.props.transport}
+        synth={this.props.synth}
       />
     )
   }
