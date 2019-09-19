@@ -30,6 +30,7 @@ class MotifGrid extends React.Component {
       />
     )
   }
+
   render() {
     return (
       <div className='motif-grid-note'>

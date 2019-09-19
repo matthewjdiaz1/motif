@@ -37,8 +37,7 @@ class RenderNote extends React.Component {
       const note = this.props.note;
       synth.triggerAttackRelease(note + '3', '1n');
 
-      this.props.transport.schedule(function (time) {
-        //do something with the time
+      this.props.transport.schedule(() => {
         console.log('from RenderNote props');
         synth.triggerAttackRelease(note + '3');
       }, `0:0:${Math.floor(this.props.index / 7)}`, '8n');

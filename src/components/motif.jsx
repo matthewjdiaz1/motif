@@ -1,5 +1,6 @@
 import React from 'react';
 import MotifGrid from './MotifGrid.jsx';
+import DrumkitGrid from './DrumkitGrid.jsx';
 import Tone from 'tone';
 
 class Motif extends React.Component {
@@ -25,7 +26,12 @@ class Motif extends React.Component {
 
 
     Tone.context.latencyHint = 'fastest';
-    Tone.Transport.bpm.value = 120;
+    Tone.Transport.bpm.value = 200;
+
+    Tone.Transport.loop = true;
+    Tone.Transport.loopStart = "0:0:0";
+    Tone.Transport.loopEnd = "2:0:0";
+
 
     // const loop = new Tone.Loop(function (time) {
     //   this.state.synth.start(time);
@@ -42,11 +48,12 @@ class Motif extends React.Component {
 
   handleClick(note) {
     console.log('transport stopped');
-    this.state.synth.triggerAttackRelease('C3', '8n');
-    this.state.transport.stop();
+    // this.state.synth.triggerAttackRelease('C3', '8n');
+    // Tone.Transport.loop = false;
+    Tone.Transport.toggle();
   }
   handlePlay() {
-    console.log('spin that shit up')
+    console.log('spin that shit up');
     // let temp = this.state.synth;
     // temp.triggerAttackRelease('C3', '4n');
 
@@ -68,7 +75,9 @@ class Motif extends React.Component {
     //   temp.triggerAttackRelease('C3');
     // }, "0:2:0");
 
-    Tone.Transport.start('+0.2');
+
+
+    Tone.Transport.toggle('+0.2');
   }
 
   render() {
@@ -80,18 +89,20 @@ class Motif extends React.Component {
           </div>
           <div className='controls-controls'>
             controls-controls
-            <button onClick={() => this.handlePlay()}>Play</button>
-            <button onClick={() => this.handleClick()}>Test w/ handleClick</button>
+            <button onClick={() => this.handlePlay()}>Play/Stop</button>
           </div>
           <div className='controls-chord-builder'>
             controls-chord-builder
           </div>
         </div>
         <div className='motif-grid'>
-          <MotifGrid
+          {/* <MotifGrid
             scale={this.state.currentScale}
             transport={this.state.transport}
             synth={this.state.synth}
+          /> */}
+          <DrumkitGrid
+            transport={this.state.transport}
           />
         </div>
       </div>
