@@ -11,7 +11,7 @@ class Motif extends React.Component {
       currentScale: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
       transport: null,
       vol: null,
-      tempo: 120,
+      bpm: 120,
       synth: null,
       loop: null,
     }
@@ -21,23 +21,34 @@ class Motif extends React.Component {
 
   componentDidMount() {
     const vol = new Tone.Volume(-12).toMaster();
-    const synth = new Tone.Synth();
+    const synth = new Tone.PolySynth();
     synth.connect(vol);
 
+    // const transporttttt = {
+    //   bpm  : 120 ,
+    //   swing  : 0 ,
+    //   swingSubdivision  : 8n ,
+    //   timeSignature  : 4 ,
+    //   loopStart  : 0 ,
+    //   loopEnd  : '4m' ,
+    //   PPQ  : 192
+    // }
 
     Tone.context.latencyHint = 'fastest';
-    Tone.Transport.bpm.value = 200;
-
+    Tone.Transport.bpm.value = 230;
+    ////////// Tone.context.latencyHint options //////////
+    // 'playback' - (prioritizes sustained playback)
+    // 'interactive' - (default, prioritizes low latency)
+    // 'balanced' - (balances latency and performance)
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = "0:0:0";
     Tone.Transport.loopEnd = "2:0:0";
-
-
-    // const loop = new Tone.Loop(function (time) {
-    //   this.state.synth.start(time);
-    //   this.state.synth.stop(time + 0.5);
-    // }, 2);
-    // this.setState({ loop: loop });
+    ////////// Tone.Transport defaults ///////////////////
+    // Tone.Transport.swing.value = 0; 
+    // Tone.Transport.swingSubdivision.value = '8n';
+    // Tone.Transport.timeSignature.value = 4;
+    // Tone.Transport.PPQ.value = 192;
+    //////////////////////////////////////////////////////
 
     this.setState({
       transport: Tone.Transport,
@@ -47,10 +58,7 @@ class Motif extends React.Component {
   }
 
   handleClick(note) {
-    console.log('transport stopped');
-    // this.state.synth.triggerAttackRelease('C3', '8n');
-    // Tone.Transport.loop = false;
-    Tone.Transport.toggle();
+
   }
   handlePlay() {
     console.log('spin that shit up');
@@ -96,14 +104,14 @@ class Motif extends React.Component {
           </div>
         </div>
         <div className='motif-grid'>
-          {/* <MotifGrid
+          <MotifGrid
             scale={this.state.currentScale}
             transport={this.state.transport}
             synth={this.state.synth}
-          /> */}
-          <DrumkitGrid
-            transport={this.state.transport}
           />
+          {/* <DrumkitGrid
+            transport={this.state.transport}
+          /> */}
         </div>
       </div>
     )
