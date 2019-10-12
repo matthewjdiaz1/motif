@@ -1,5 +1,5 @@
 import React from 'react';
-import Tone from 'tone';
+// import Tone from 'tone';
 
 
 class RenderNote extends React.Component {
