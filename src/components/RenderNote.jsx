@@ -1,6 +1,4 @@
 import React from 'react';
-import Tone from 'tone';
-
 
 class RenderNote extends React.Component {
   constructor(props) {
@@ -22,25 +20,30 @@ class RenderNote extends React.Component {
     console.log('column:', Math.floor(this.props.index / 7));
 
     if (this.state.isNoteClicked) {
-      this.setState({ style: { "backgroundColor": "white" } })
+      this.setState({
+        style: { "backgroundColor": "white" },
+        isNoteClicked: !this.state.isNoteClicked,
+      });
       console.log('note already clicked');
+      synth.triggerfRelease();
       //todo, remove note from transport queue 
       // this.setState({ isNoteClicked: !this.state.isNoteClicked });
     } else {
       console.log('new note clicked');
-      this.setState({
-        style: { "backgroundColor": "blueviolet" },
-        isNoteClicked: !this.state.isNoteClicked,
-      });
-
       const synth = this.props.synth;
       const note = this.props.note;
-      synth.triggerAttackRelease(note + '3', '1n');
+      synth.triggerAttackRelease(note + '3', '4n');
 
       this.props.transport.schedule(() => {
         console.log('from RenderNote props');
         synth.triggerAttackRelease(note + '3');
       }, `0:0:${Math.floor(this.props.index / 7)}`, '8n');
+
+      this.setState({
+        style: { "backgroundColor": "blueviolet" },
+        isNoteClicked: !this.state.isNoteClicked,
+        // synth:
+      });
     }
   }
   render() {
