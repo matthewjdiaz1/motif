@@ -36,5 +36,8 @@
     "tone": "^13.8.25",
     "webpack": "^4.37.0",
     "webpack-cli": "^3.3.6"
+  },
+  "dependencies": {
+    "@material/slider": "^3.2.0"
   }
 }
