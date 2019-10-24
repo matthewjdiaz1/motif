@@ -12,47 +12,40 @@ class Motif extends React.Component {
       // currentScale: [0, 2, 4, 5, 7, 9, 11], // c maj
       currentScale: [0, 1, 4, 5, 7, 8, 11], // double harmonic
       volume: 75,
-      tempo: 120,
+      tempo: 40,
       synth: null,
       loop: null,
+      tone: null,
     }
     this.handleClick = this.handleClick.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
   }
 
   componentDidMount() {
-    const volume = new Tone.Volume(-12).toMaster();
+    const volume = new Tone.Volume(-80).toMaster();
     const synth = new Tone.Synth();
     synth.connect(volume);
 
-
     Tone.context.latencyHint = 'fastest';
-    Tone.Transport.bpm.value = 200;
+    Tone.Transport.bpm.value = 175;
 
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = "0:0:0";
     Tone.Transport.loopEnd = "2:0:0";
 
-    const sequencer = new Tone.Sequence(function (time, note) {
-      console.log(note);
-      synth.triggerAttackRelease(note, "8n");
-    }, ["C4", ["E4", "D4", "E4"], "G4", ["A4", "G4"]]);
-    Tone.Transport.toggle('+0.2');
-    sequencer.start();
     this.setState({
       volume: volume,
       synth: synth,
-      sequencer: sequencer,
+      // sequencer: sequencer,
     });
+    synth.triggerAttackRelease("B2", '1n');
   }
   handleClick(note) {
-    console.log('transport stopped');
-    Tone.Transport.toggle();
+    console.log('handleClick');
   }
   handlePlay() {
     console.log('spin that shit up');
     Tone.Transport.toggle('+0.2');
-    this.state.sequencer.start();
   }
 
   render() {
@@ -75,17 +68,17 @@ class Motif extends React.Component {
               controls-chord-builder
             </div>
           </div>
+          {/* <div className='motif-grid'>
+              <MotifGrid
+                scale={this.state.currentScale}
+                volume={this.state.volume}
+                synth={this.state.synth}
+                tone={Tone}
+              /> */}
           <div className='motif-grid'>
-            <MotifGrid
-              scale={this.state.currentScale}
+            <DrumkitGrid
               transport={Tone.Transport}
-              volume={this.state.volume}
-              synth={this.state.synth}
-              tone={Tone}
             />
-            {/* <DrumkitGrid
-              transport={this.state.transport}
-            /> */}
           </div>
         </div>
       )

@@ -16,9 +16,9 @@ class ToneSettings extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
-    const bpmSlider = new MDCSlider(document.querySelector('.mdc-slider'));
+    // const bpmSlider = new MDCSlider(document.querySelector('.mdc-slider'));
 
-    bpmSlider.listen('MDCSlider:change', () => this.props.transport.bpm.value = bpmSlider.value);
+    // bpmSlider.listen('MDCSlider:change', () => this.props.transport.bpm.value = bpmSlider.value);
   }
   handleClick() {
     // console.log(this.props)
@@ -30,7 +30,7 @@ class ToneSettings extends React.Component {
         <div onClick={() => this.handleClick()}>handleClick</div>
         <div className="ToneSettings-volume-container">BPM
         <div className="mdc-slider" tabIndex="0" role="slider"
-            aria-valuemin="40" aria-valuemax="300" aria-valuenow="130"
+            aria-valuemin="40" aria-valuemax="300" aria-valuenow="40"
             aria-label="Select Value">
             <div className="mdc-slider__track-container">
               <div className="mdc-slider__track"></div>

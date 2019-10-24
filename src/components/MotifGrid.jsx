@@ -5,63 +5,94 @@ class MotifGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      ////////////////////// add style={{"display":"none"}} when drums or bass is pulled
       isLoaded: false,
-      sequencers: [],
+      sequencers: Array(12),
+      synths: Array(12),
+      events: [
+        ["C3", null, null, null, null, null, null, null, null, null, null, null, "C3", "C3", "C4", "C4"],
+        [null, "C#3", null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+        [null, null, "D3", null, null, null, null, null, null, null, null, null, null, null, "D3", "D3"],
+        [null, null, null, "D#3", null, null, null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, "E3", null, null, null, null, null, null, null, "E3", "E3", null, null],
+        [null, null, null, null, null, "F3", null, null, null, null, null, null, null, null, "F3", "F3"],
+        [null, null, null, null, null, null, "F#3", null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, "G3", null, null, null, null, "G3", "G3", null, null],
+        [null, null, null, null, null, null, null, null, "G#3", null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null, null, "A3", null, null, null, null, "A3", "A3"],
+        [null, null, null, null, null, null, null, null, null, null, "A#3", null, null, null, null, null],
+        [null, null, null, null, null, null, null, null, null, null, null, "B3", "B3", "B3", null, null],
+      ],
     }
+    this.updateSequencer = this.updateSequencer.bind(this);
+    this.updateAllSequencers = this.updateAllSequencers.bind(this);
     this.mapScaleToGrid = this.mapScaleToGrid.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.updateSequencers = this.updateSequencers.bind(this);
   }
+
   componentDidMount() {
-    let cromaticScale = {
-      0: "C",
-      1: "C#",
-      2: "D",
-      3: "D#",
-      4: "E",
-      5: "F",
-      6: "F#",
-      7: "G",
-      8: "G#",
-      9: "A",
-      10: "A#",
-      11: "B",
-    };
-
-    // create a sequencer for each note of the scale and set the loop to true
-    this.props.scale.forEach((note, index) => {
+    // GOALLLLLL => create a sequencer and synth for each note of the scale
+    // events, synths, and sequencers must be stored in state
+    // for each sequencer
+    console.log(this.props.scale);
+    for (let i = 0; i < 12; i++) {
+      // screate a synth and setstate
       const synth = new this.props.tone.Synth().toMaster();
-      let event = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null];
-      let newSeqObj = { event, synth };
-      let newSeqState = this.state.sequencers;
-      newSeqState[note] = newSeqObj;
-      // input array for the sequencers should be stored in state'
-      this.setState({ sequencers: newSeqState });
-      console.log(this.state.sequencers[note].event);
-      const seq = new this.props.tone.Sequence((time, note) => {
-        console.log(note);
-        synth.triggerAttackRelease(cromaticScale[note] + '3', "16n");
-      }, this.state.sequencers[note].event, "16n");
-      // seq.loop = true;
-      seq.start();
+      let synths = this.state.synths;
+      synths[i] = synth;
+      this.setState({
+        synths,
+      });
+      // then, create a sequencer and setstate
+      // const sequencer = new this.props.tone.Sequence(function (time, note) {
+      //   console.log(`${note} at ${time}`);
+      //   console.log(state.events[i]);
+      //   synth.triggerAttackRelease(note, "8n");
+      // }, this.state.events[i], "8n");
+      // sequencer.start();
 
-      newSeqObj.seq = seq;
-      let newSeq = this.state.sequencers;
-      newSeq[note] = {
-        seq: seq,
-        synth: synth,
-        event: event,
-      }
+      // let sequencers = this.state.sequencers;
+      // state.sequencers[i] = sequencer;
+
+      // this.setState({
+      //   synths: state.synths,
+      //   sequencers: state.sequencers,
+      // });
+
+    }
+    this.updateAllSequencers(this.state);
+
+    this.setState({
+      isLoaded: true,
+    });
+  }
+  updateSequencer(state, index) {
+    // TODO - updates sequencer with state.synths and state.events
+    // schedules it to the beginning of transport beat 0 allowing it to be updated while playing (hit it next round)
+    // clean up old sequencers
+
+  }
+  updateAllSequencers(state) {
+    // TODO - updates all sequencers with state.synths and state.events
+    // schedules them to the beginning of transport beat 0 allowing it to be updated while playing (hit it next round)
+    // clean up old sequencers
+    // for each sequencer, if the event has changed, 
+    for (let i = 0; i < state.synths.length; i++) {
+      // then, create a sequencer and setstate
+      const sequencer = new this.props.tone.Sequence(function (time, note) {
+        console.log(`${note}`);
+        state.synths[i].triggerAttackRelease(note, "8n");
+      }, this.state.events[i], "8n");
+      sequencer.start();
+
+      let sequencers = state.sequencers;
+      sequencers[i] = sequencer;
 
       this.setState({
-        sequencers: newSeq,
-        cromaticScale: cromaticScale,
-        isLoaded: true,
+        sequencers,
       });
-    });
-
-    // onClick schedule and deschedule the notes for the sequencer in state to display on the grid
-    // console.log(this.state.sequencers);
+    };
+    // console.log(state);
   }
   mapScaleToGrid(note, index) {
     if (note === null) return;
@@ -76,28 +107,33 @@ class MotifGrid extends React.Component {
       />
     )
   }
-  updateSequencers(sequencers) {
-    sequencers.forEach((seq) => {
-      console.log('starting?', seq.seq);
-      seq.seq.start();
-      console.log(seq.seq.state);
-    });
-    console.log(this.props.tone.Transport.state);
-    console.log(this.props.tone.Transport);
-    this.props.tone.Transport.toggle('+0.2');
-    console.log(this.props.tone.Transport.state);
-  }
   handleClick(note) {
-    // console.log(this.state.sequencers[note].event);
-    let editSequencer = this.state.sequencers;
-    // console.log(editSequencer[note].event);
-    if (note === 0 || note === 1) {
-      let editSequencer = this.state.sequencers;
-      editSequencer[note].event = [this.state.cromaticScale[note], null, null, null, this.state.cromaticScale[note], null, null, null, this.state.cromaticScale[note], null, null, null, this.state.cromaticScale[note], null, null, null];
-      this.setState({ sequencers: editSequencer });
-    }
-    // console.log(this.state.sequencers);
-    this.updateSequencers(this.state.sequencers);
+    // console.log(this.state.sequencers[note].events);
+    // let editSequencer = this.state.sequencers;
+    // console.log(editSequencer[note].events);
+    // if (note === 0 || note === 1) {
+    //   let editSequencer = this.state.sequencers;
+    //   editSequencer[note].events = [this.state.cromaticScale[note], null, null, null, this.state.cromaticScale[note], null, null, null, this.state.cromaticScale[note], null, null, null, this.state.cromaticScale[note], null, null, null];
+    //   this.setState({ sequencers: editSequencer });
+    // }
+    // // console.log(this.state.sequencers);
+    // this.updateSequencers(this.state.sequencers);
+    this.setState({
+      events: [
+        ["C3", "C3", "C4", "C4"],
+        [null, null, null, null],
+        [null, null, "D3", "D3"],
+        [null, null, null, null],
+        ["E3", "E3", null, null],
+        [null, null, "F3", "F3"],
+        [null, null, null, null],
+        ["G3", "G3", null, null],
+        [null, null, null, null],
+        [null, null, "A3", "A3"],
+        [null, null, null, null],
+        ["B3", "B3", null, null],
+      ],
+    }, () => this.updateAllSequencers(this.state));
   }
 
   render() {
