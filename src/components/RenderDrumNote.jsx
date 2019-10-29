@@ -1,14 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
-// import Tone from 'tone';
 
-||||||| merged common ancestors
-import Tone from 'tone';
-
-=======
->>>>>>> control-panel
-
-class RenderNote extends React.Component {
+class RenderDrumNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,7 +35,7 @@ class RenderNote extends React.Component {
       synth.triggerAttackRelease(note + '3', '4n');
 
       this.props.transport.schedule(() => {
-        console.log('from RenderNote props');
+        console.log('from RenderDrumNote props');
         synth.triggerAttackRelease(note + '3');
       }, `0:0:${Math.floor(this.props.index / 7)}`, '8n');
 
@@ -56,9 +48,13 @@ class RenderNote extends React.Component {
   }
   render() {
     return (
-      <button style={this.state.style} onClick={() => this.handleClick()} className='motif-grid-button'>{this.props.note}</button>
+      <div
+        style={this.state.style}
+        onClick={() => this.handleClick()}
+        className='motif-grid-button'>{this.props.note}
+      </div>
     )
   }
 }
 
-export default RenderNote;
+export default RenderDrumNote;
