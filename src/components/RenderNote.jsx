@@ -1,12 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-// import Tone from 'tone';
-
-||||||| merged common ancestors
-import Tone from 'tone';
-
-=======
->>>>>>> control-panel
 
 class RenderNote extends React.Component {
   constructor(props) {
