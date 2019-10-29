@@ -38,23 +38,23 @@ class DrumkitGrid extends React.Component {
     if (column < 5) {
       this.props.transport.schedule(() => {
         note.start();
-        console.log(`0:0:${column}`)
-      }, `0:0:${column}`, '4n');
+        console.log(`0:0:${column - 1}`)
+      }, `0:0:${column - 1}`, '4n');
     } else if (column < 9) {
       this.props.transport.schedule(() => {
         note.start();
-        console.log(`0:1:${column - 4}`)
-      }, `0:1:${column - 4}`, '4n');
+        console.log(`0:1:${column - 5}`)
+      }, `0:1:${column - 5}`, '4n');
     } else if (column < 13) {
       this.props.transport.schedule(() => {
         note.start();
-        console.log(`0:2:${column - 8}`)
-      }, `0:2:${column - 8}`, '4n');
+        console.log(`0:2:${column - 9}`)
+      }, `0:2:${column - 9}`, '4n');
     } else {
       this.props.transport.schedule(() => {
         note.start();
-        console.log(`0:3:${column - 12}`)
-      }, `0:3:${column - 12}`, '4n');
+        console.log(`0:3:${column - 13}`)
+      }, `0:3:${column - 13}`, '4n');
     }
   }
   mapNotesToGrid(note, index) {
