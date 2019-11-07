@@ -73,3 +73,27 @@
   font-size: 20px;
   text-align: center;
 }
+
+/* 
+
+codepen grid 
+
+.motif-container {
+  border-style: solid;
+  background-color: darkgray;
+  border-width: 2px;
+  margin: 10px;
+  padding: 5px;
+}
+
+.motif-grid {
+  display: grid;
+  background-color: darkgray;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  /* grid-gap: 1px; comm out here */ 
+/* } 
+
+div {
+    background-color: lightgray;
+} */
